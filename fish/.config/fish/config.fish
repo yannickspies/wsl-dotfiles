@@ -22,40 +22,44 @@ function cfcr
     end
 
     set filecount 0
+    set all_contents ""
+
     find $dir -type f \
-        ! -path "*/node_modules/*" \
-        ! -path "*/.git/*" \
-        ! -path "*/.angular/*" \
-        ! -path "*/.vscode/*" \
-        ! -path "*/.idea/*" \
-        ! -path "*/.svn/*" \
-        ! -path "*/.DS_Store" \
-        ! -path "*/dist/*" \
-        ! -path "*/build/*" \
-        ! -path "*/coverage/*" \
-        ! -path "*/fonts/*" \
-        ! -path "*/.fonts/*" \
-        ! -path "*/.next/*" \
-        ! -name "package-lock.json" \
-        ! -name "yarn.lock" \
-        ! -name "*.log" \
-        ! -name "*.map" \
-        ! -name "*.ico" \
-        ! -name "*.woff" \
-        ! -name "*.woff2" \
-        ! -name "*.ttf" \
-        ! -name "*.eot" \
-        ! -name "*.svg" \
-        ! -name "next-env.d.ts" \
-        ! -name "*.config.ts" \
-        ! -name "*.config.js" \
-        ! -name "*.config.mjs" \
-        -print0 | while read -z file
+    ! -path "*/node_modules/*" \
+    ! -path "*/.git/*" \
+    ! -path "*/.angular/*" \
+    ! -path "*/.vscode/*" \
+    ! -path "*/.idea/*" \
+    ! -path "*/.svn/*" \
+    ! -path "*/.DS_Store" \
+    ! -path "*/dist/*" \
+    ! -path "*/build/*" \
+    ! -path "*/coverage/*" \
+    ! -path "*/fonts/*" \
+    ! -path "*/.fonts/*" \
+    ! -path "*/.next/*" \
+    ! -name "package-lock.json" \
+    ! -name "yarn.lock" \
+    ! -name "*.log" \
+    ! -name "*.map" \
+    ! -name "*.ico" \
+    ! -name "*.woff" \
+    ! -name "*.woff2" \
+    ! -name "*.ttf" \
+    ! -name "*.eot" \
+    ! -name "*.svg" \
+    ! -name "next-env.d.ts" \
+    ! -name "*.config.ts" \
+    ! -name "*.config.js" \
+    ! -name "*.config.mjs" \
+    -print0 | while read -z file
         set content (cat "$file")
-        printf "=== Contents of $file ===\n\n$content\n\n=== End of $file ===\n\n" | xclip -selection clipboard
+        set all_contents "$all_contents=== Contents of $file ===\n\n$content\n\n=== End of $file ===\n\n"
         echo "Successfully copied contents of $file to clipboard"
         set filecount (math $filecount + 1)
     end
+
+    printf "%b" $all_contents | xclip -selection clipboard
 
     if test $filecount -eq 0
         echo "No files found to copy"

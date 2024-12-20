@@ -6,3 +6,6 @@ local map = vim.keymap.set
 
 -- Oil
 map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+-- Select all text
+map("n", "<C-a>", "ggVG", { desc = "Select all text" })
