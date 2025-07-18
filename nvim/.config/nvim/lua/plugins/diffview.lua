@@ -10,15 +10,8 @@ return {
     "DiffviewFileHistory",
   },
   keys = {
-    { "<leader>gv", "<cmd>DiffviewOpen HEAD~1<cr>", desc = "Open Diffview (last commit)" },
-    { "<leader>gw", "<cmd>DiffviewOpen<cr>", desc = "Working changes (uncommitted)" },
-    { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File History (current)" },
-    { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "File History (all)" },
-    { "<leader>gm", "<cmd>DiffviewOpen origin/main...HEAD<cr>", desc = "Compare with main" },
-    { "<leader>gc", ":DiffviewOpen ", desc = "Compare branches/commits" },
-    { "<leader>gf", "<cmd>DiffviewFileHistory --follow %<cr>", desc = "File History (follow renames)" },
-    { "<leader>gl", "<cmd>DiffviewFileHistory --range=HEAD~10..HEAD<cr>", desc = "Log recent commits (10)" },
-    { "<leader>go", ":DiffviewOpen ", desc = "Open specific commit" },
+    { "<leader>gd", "<cmd>DiffviewOpen origin/HEAD...HEAD --imply-local<cr>", desc = "Diff against base branch" },
+    { "<leader>gD", "<cmd>DiffviewFileHistory --range=origin/HEAD...HEAD --right-only --no-merges<cr>", desc = "Review PR commits" },
   },
   opts = {
     enhanced_diff_hl = true,
